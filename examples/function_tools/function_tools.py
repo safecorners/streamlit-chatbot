@@ -63,10 +63,10 @@ for content in st.session_state.chat_session.get_history():
             if part.text:
                 st.markdown(part.text)
             if part.function_call:
-                with st.status(f"{part.function_call.name} 함수 호출 요청", state="complete"):
+                with st.status(f"{part.function_call.name} 함수 호출 요청"):
                     st.json(part.function_call.args)
             if part.function_response:
-                with st.status(f"{part.function_response.name} 함수 실행 완료", state="complete"):
+                with st.status(f"{part.function_response.name} 함수 실행 완료"):
                     st.json(part.function_response.response)
 
 
@@ -77,6 +77,8 @@ if prompt := st.chat_input("챗봇에게 물어보기"):
     with st.chat_message("assistant"):
         response = st.session_state.chat_session.send_message(prompt)
         st.markdown(response.text)
+
+    st.rerun()
 
 with st.sidebar:
     st.header("팔레트")
